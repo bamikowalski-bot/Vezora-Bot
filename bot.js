@@ -460,7 +460,7 @@ async function scanChannel(channel) {
         }
       }
     }
-    laatsteId = messages.last().id;
+    lastId = messages.last().id;
     if (messages.size < 100) searching = false;
   }
   return highest;
@@ -937,6 +937,7 @@ async function closeTicket(channel, closerId) {
 // ===== Verify =====
 async function setupVerify() {
   try {
+    if (!VERIFY_CHANNEL_ID) return;
     const channel = await client.channels.fetch(VERIFY_CHANNEL_ID);
     if (!channel) return;
     await clearBotMessages(channel);
@@ -1074,6 +1075,7 @@ function notLegitReviewRow() {
 
 // ===== Interaction handler =====
 client.on('interactionCreate', async (i) => {
+  try {
   // /review
   if (i.isChatInputCommand() && i.commandName === 'review') {
     if (i.channelId !== REVIEW_CHANNEL_ID) return i.reply({ content: `You can only post a review in <#${REVIEW_CHANNEL_ID}>.`, ephemeral: true });
@@ -1816,8 +1818,6 @@ client.on('interactionCreate', async (i) => {
 
         await i.deferReply({ ephemeral: true });
 
-        // ⚠️ GEEN stemregistratie hier — pas na Positive door staff.
-
         const cat = TICKET_CATEGORIES.notlegit;
         const channelName = `notlegit-${i.user.username}`.toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 90);
         const ticketChannel = await guild.channels.create({
@@ -1843,7 +1843,6 @@ client.on('interactionCreate', async (i) => {
         };
         await saveNotLegitTickets(notLegitStore);
 
-        // Korte, duidelijke Engelse tekst
         const promptEmbed = new EmbedBuilder()
           .setTitle('Upload proof')
           .setColor(0xff4444)
@@ -1899,7 +1898,6 @@ client.on('interactionCreate', async (i) => {
         const confirmed = await getConfirmedRejects();
 
         if (i.customId === 'notlegit_positive') {
-          // ✅ PAS NU de ❌-stem toevoegen + bevestigen
           if (!votes.reject.includes(targetUserId)) votes.reject.push(targetUserId);
           if (!confirmed.includes(targetUserId)) confirmed.push(targetUserId);
           await saveLegitVotes(votes);
@@ -1935,7 +1933,6 @@ client.on('interactionCreate', async (i) => {
 
           await i.editReply({ content: '✅ Reviewed as **Positive**. The vote has been added and confirmed.' });
         } else {
-          // ❌ False → er was nog geen stem, dus niets aan de teller veranderen
           await setNotLegitStatus(i.channelId, 'false');
 
           const embed = new EmbedBuilder()
@@ -2039,6 +2036,16 @@ client.on('interactionCreate', async (i) => {
       reviews.delete(i.user.id);
     }
   }
+  } catch (err) {
+    console.error('Unhandled interaction error:', err);
+    try {
+      if (i.replied || i.deferred) {
+        await i.followUp({ content: 'An unexpected error occurred.', ephemeral: true });
+      } else {
+        await i.reply({ content: 'An unexpected error occurred.', ephemeral: true });
+      }
+    } catch (_) {}
+  }
 });
 
 // ===== Member leave =====
@@ -2073,19 +2080,23 @@ client.on('channelDelete', async (channel) => {
 // ===== Ready =====
 client.once('ready', async () => {
   console.log(`Online as ${client.user.tag}`);
-  startStatusInterval();
-  startExpiryInterval();
-  startBanInterval();
+  try {
+    startStatusInterval();
+    startExpiryInterval();
+    startBanInterval();
 
-  await updateOverview();
-  startOverzichtInterval();
+    await updateOverview();
+    startOverviewInterval();
 
-  await setupVerify();
-  await setupPricing();
-  await setupTicketPanel();
-  await setupLegitPoll();
+    await setupVerify();
+    await setupPricing();
+    await setupTicketPanel();
+    await setupLegitPoll();
 
-  await restoreGiveaways();
+    await restoreGiveaways();
+  } catch (e) {
+    console.error('Error in ready handler:', e);
+  }
 });
 
 client.login(TOKEN);
