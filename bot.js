@@ -43,9 +43,9 @@ const PRODUCT = 'Vexora External + Bypass';
 const STATUS_INTERVAL = 8000;
 
 const TICKET_CATEGORIES = {
-  support: { name: 'Support', prefix: 'support', categoryId: '1559570734664122488', emoji: '🎫', color: 0x3498db },
-  purchase: { name: 'Purchase', prefix: 'purchase', categoryId: '1559570790398042133', emoji: '🛒', color: 0x00ff88 },
-  bug: { name: 'Bug', prefix: 'bug', categoryId: '1559570848279429290', emoji: '⚠️', color: 0xff4444 },
+  support: { name: 'Support', prefix: 'support', categoryId: '1557492554402897980', emoji: '🎫', color: 0x3498db },
+  purchase: { name: 'Purchase', prefix: 'purchase', categoryId: '1557492529908293662', emoji: '🛒', color: 0x00ff88 },
+  bug: { name: 'Bug', prefix: 'bug', categoryId: '1557492532852818140', emoji: '⚠️', color: 0xff4444 },
   notlegit: { name: 'Not Legit Proof', prefix: 'notlegit', categoryId: NOT_LEGIT_TICKET_CATEGORY_ID, emoji: '❌', color: 0xff4444 },
 };
 
