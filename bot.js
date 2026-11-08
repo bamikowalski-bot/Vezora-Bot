@@ -20,7 +20,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const GUILD_ID = process.env.GUILD_ID;
 const GIST_ID = process.env.GIST_ID;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const LOGO = 'https://cdn.discordapp.com/attachments/1557498332262301716/1558123583371481139/Vexora.png?ex=6ace3faa&is=6accee2a&hm=c27628f8d9c71dab36f1041308bc32a630c03fadc49bf418913598bd4944c7ea&';
+const LOGO = 'https://cdn.discordapp.com/attachments/1568005668869505074/1569062945965482135/star_zonder_bakcground.png?ex=6af2173e&is=6af0c5be&hm=fb445311255a4e22f82a921814b02ba32a91237ec9a64efe80b900f79d9223fa&';
 const PORT = process.env.PORT || 3000;
 
 // ===== Settings =====
@@ -63,7 +63,7 @@ if (SELF_URL) {
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
-  presence: { status: 'online', activities: [{ name: 'Vexora.cc', type: 3 }] },
+  presence: { status: 'online', activities: [{ name: 'St☆r', type: 3 }] },
 });
 const reviews = new Map();
 
@@ -128,7 +128,7 @@ const formatGiveawayDuration = formatShortDuration;
 const commands = [
   {
     name: 'review',
-    description: 'Write a review for Vexora External + Bypass',
+    description: 'Write a review for St☆r External + Bypass',
     options: [{ name: 'extra', description: 'Tell us briefly about your experience', type: 3, required: true }],
   },
   {
@@ -331,7 +331,7 @@ async function checkBans() {
               const embed = new EmbedBuilder()
                 .setColor(0x00ff88)
                 .setDescription(`🔓 <@${b.userId}> has been automatically unbanned (temporary ban expired)`)
-                .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+                .setFooter({ text: 'St☆r', iconURL: LOGO })
                 .setTimestamp();
               await logChannel.send({ embeds: [embed] });
             }
@@ -372,7 +372,7 @@ function buildSuggestionEmbed(s) {
       { name: 'By', value: `<@${s.auteurId}>`, inline: true },
       { name: 'Votes', value: `✅ ${s.approve.length}  •  ❌ ${s.reject.length}`, inline: true }
     )
-    .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+    .setFooter({ text: 'St☆r', iconURL: LOGO })
     .setTimestamp(s.gestart);
 }
 
@@ -405,7 +405,7 @@ function buildLegitEmbed(votes, confirmedRejects = []) {
       `\n\n*Clicking ❌ Not legit opens a private ticket where you must upload proof.*`
     )
     .setThumbnail(LOGO)
-    .setFooter({ text: 'Vexora.cc', iconURL: LOGO });
+    .setFooter({ text: 'St☆r', iconURL: LOGO });
 }
 
 function buildLegitRow(votes) {
@@ -438,7 +438,7 @@ async function logVote(userId, type, target) {
     const embed = new EmbedBuilder()
       .setColor(type === 'approve' ? 0x00ff88 : 0xff4444)
       .setDescription(`<@${userId}> voted ${type === 'approve' ? '✅ approve' : '❌ reject'} on ${target}`)
-      .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+      .setFooter({ text: 'St☆r', iconURL: LOGO })
       .setTimestamp();
     await channel.send({ embeds: [embed] });
   } catch (e) { console.error('Could not send vote log:', e.message); }
@@ -562,7 +562,7 @@ async function buildOverviewEmbed() {
     .setTitle('Active Purchases')
     .setColor(0x5865f2)
     .setThumbnail(LOGO)
-    .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+    .setFooter({ text: 'St☆r', iconURL: LOGO })
     .setTimestamp();
   for (const plan of ['1 week', '1 month', 'lifetime']) {
     const list = perPlan[plan] || [];
@@ -632,7 +632,7 @@ function buildGiveawayEmbed(g) {
       `**Ends:** <t:${Math.floor(g.eindTijd / 1000)}:R>\n\n` +
       `React with 🎉 to enter!`
     )
-    .setFooter({ text: `Vexora.cc • Hosted by ${g.hostTag || 'unknown'}`, iconURL: LOGO })
+    .setFooter({ text: `St☆r • Hosted by ${g.hostTag || 'unknown'}`, iconURL: LOGO })
     .setTimestamp(g.gestart);
 }
 
@@ -650,7 +650,7 @@ function buildGiveawayEndedEmbed(g, winners, isReroll = false) {
       `**${isReroll ? 'New winners' : 'Winners'}:** ${winnerText}\n\n` +
       `Congratulations! 🎊`
     )
-    .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+    .setFooter({ text: 'St☆r', iconURL: LOGO })
     .setTimestamp();
 }
 
@@ -709,8 +709,8 @@ async function endGiveaway(messageId, channelId) {
                 .setTitle('🎉 You won a giveaway!')
                 .setColor(0x00ff88)
                 .setThumbnail(LOGO)
-                .setDescription(`Congratulations! You won **${g.item}** in the **Vexora.cc** giveaway!`)
-                .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+                .setDescription(`Congratulations! You won **${g.item}** in the **St☆r** giveaway!`)
+                .setFooter({ text: 'St☆r', iconURL: LOGO })
                 .setTimestamp(),
             ],
           });
@@ -918,7 +918,7 @@ async function closeTicket(channel, closerId) {
         { name: 'Closed by', value: `<@${closerId}>`, inline: true },
         { name: 'Category', value: cat ? cat.name : 'Unknown', inline: true },
         { name: 'Messages', value: `${messageCount}`, inline: true }
-      ).setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+      ).setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
 
     await transcriptChannel.send({ embeds: [transcriptEmbed], files: [attachment] });
   } catch (e) {
@@ -944,7 +944,7 @@ async function setupVerify() {
     const embed = new EmbedBuilder()
       .setTitle('Verify').setColor(0x5865f2)
       .setDescription('Click below to gain access to the server.')
-      .setThumbnail(LOGO).setFooter({ text: 'Vexora.cc', iconURL: LOGO });
+      .setThumbnail(LOGO).setFooter({ text: 'St☆r', iconURL: LOGO });
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder().setCustomId('verify_button').setLabel('Verify').setEmoji('✅').setStyle(ButtonStyle.Success)
     );
@@ -959,14 +959,14 @@ async function setupPricing() {
     if (!channel) return;
     await clearBotMessages(channel);
     const embed = new EmbedBuilder()
-      .setTitle('Vexora.cc Private').setColor(0x5865f2).setThumbnail(LOGO)
+      .setTitle('St☆r Private').setColor(0x5865f2).setThumbnail(LOGO)
       .setDescription('> Premium external cheat with advanced bypass.\n> ⚡ Fast delivery • 🔒 Safe • 🕐 24/7 Support')
       .addFields(
         { name: '💰 Pricing', value: '```\n1 Week    →  €7.50\n1 Month   →  €20.00\nLifetime  →  €60.00\n```', inline: false },
         { name: '🛡️ Product', value: '> • External Cheat\n> • Advanced bypass — removes all traces after execution\n> • Daily Updates\n> • Easy to use interface\n> • 24/7 Support', inline: false },
         { name: '👥 Group Deals', value: '```\nDuo    →  €30 per person\nTrio   →  €20 per person\nSquad  →  €15 per person\nMore?  →  Open a ticket\n```', inline: false }
       )
-      .setFooter({ text: 'Vexora.cc', iconURL: LOGO });
+      .setFooter({ text: 'St☆r', iconURL: LOGO });
     await channel.send({ embeds: [embed] });
   } catch (e) { console.error('Could not post pricing:', e.message); }
 }
@@ -980,7 +980,7 @@ async function setupTicketPanel() {
     const embed = new EmbedBuilder()
       .setTitle('Tickets').setColor(0x5865f2)
       .setDescription('Choose a category below to open a ticket.\n\n> ⚡ Fast delivery\n> 🔒 Safe & reliable\n> 🕐 24/7 Support')
-      .setThumbnail(LOGO).setFooter({ text: 'Vexora.cc', iconURL: LOGO });
+      .setThumbnail(LOGO).setFooter({ text: 'St☆r', iconURL: LOGO });
     const menu = new StringSelectMenuBuilder()
       .setCustomId('ticket_category_select').setPlaceholder('Category...')
       .addOptions([
@@ -1112,13 +1112,13 @@ client.on('interactionCreate', async (i) => {
           { name: 'Key', value: `\`\`\`${key}\`\`\``, inline: false },
           { name: 'Expires', value: endTime === null ? 'Never (Lifetime)' : `<t:${Math.floor(endTime/1000)}:F> (<t:${Math.floor(endTime/1000)}:R>)`, inline: false }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+        .setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
       await i.editReply({ embeds: [embed] });
       try {
         const dmEmbed = new EmbedBuilder()
           .setTitle('Thank you for your purchase!').setColor(0x00ff88).setThumbnail(LOGO)
           .setDescription(`Hey <@${targetUser.id}>,\n\nThanks for purchasing the **${planText} Plan** for **${PRODUCT}**!\n\nHere is your key:\n\`\`\`${key}\`\`\`\nKeep it safe!\n\nWant to leave a review? Use \`/review\`. 💙`)
-          .setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+          .setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
         await targetUser.send({ embeds: [dmEmbed] });
       } catch (e) {}
     } catch (e) { await i.editReply({ content: `Error: ${e.message}` }); }
@@ -1147,7 +1147,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Plan', value: existing.plan === 'lifetime' ? 'Lifetime' : existing.plan, inline: true },
           { name: 'Key', value: existing.key ? `\`${existing.key}\`` : 'none', inline: false },
           { name: 'Role removed', value: roleRemoved ? 'Yes' : 'No', inline: true }
-        ).setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+        ).setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
       await i.editReply({ embeds: [embed] });
     } catch (e) { await i.editReply({ content: `Error: ${e.message}` }); }
     return;
@@ -1159,7 +1159,7 @@ client.on('interactionCreate', async (i) => {
     const text = i.options.getString('tekst');
     try {
       const channel = await client.channels.fetch(SUGGESTIE_CHANNEL_ID);
-      const placeholder = new EmbedBuilder().setTitle('New Suggestion').setColor(0x5865f2).setThumbnail(LOGO).setDescription('Loading...').setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+      const placeholder = new EmbedBuilder().setTitle('New Suggestion').setColor(0x5865f2).setThumbnail(LOGO).setDescription('Loading...').setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
       const msg = await channel.send({ embeds: [placeholder] });
       const suggestions = await getSuggestions();
       suggestions[msg.id] = { tekst: text, auteurId: i.user.id, approve: [], reject: [], gestart: Date.now() };
@@ -1200,7 +1200,7 @@ client.on('interactionCreate', async (i) => {
         if (logChannel) {
           const embed = new EmbedBuilder().setColor(0xff4444)
             .setDescription(`🧹 <@${i.user.id}> removed **${toRemove}** ❌ vote(s) from the legit poll.`)
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+            .setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
           await logChannel.send({ embeds: [embed] });
         }
       } catch (e) {}
@@ -1209,7 +1209,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Removed', value: `${toRemove}`, inline: true },
           { name: 'Remaining ❌', value: `${votes.reject.length}`, inline: true },
           { name: 'Total ✅', value: `${votes.approve.length}`, inline: true }
-        ).setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+        ).setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
       if (toRemove < amount) embed.setDescription(`⚠️ You asked to remove **${amount}**, but there were only **${current}**.`);
       await i.editReply({ embeds: [embed] });
     } catch (e) { await i.editReply({ content: `Error: ${e.message}` }); }
@@ -1273,7 +1273,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Duration', value: formatShortDuration(durationMs), inline: true },
           { name: 'Ends', value: `<t:${Math.floor(endTime / 1000)}:F> (<t:${Math.floor(endTime / 1000)}:R>)`, inline: false }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+        .setFooter({ text: 'St☆r', iconURL: LOGO })
         .setTimestamp();
 
       await i.editReply({ embeds: [confirmation] });
@@ -1343,8 +1343,8 @@ client.on('interactionCreate', async (i) => {
                   .setTitle('🎉 You won a giveaway!')
                   .setColor(0x00ff88)
                   .setThumbnail(LOGO)
-                  .setDescription(`Congratulations! You won **${info.item}** in the **Vexora.cc** reroll!`)
-                  .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+                  .setDescription(`Congratulations! You won **${info.item}** in the **St☆r** reroll!`)
+                  .setFooter({ text: 'St☆r', iconURL: LOGO })
                   .setTimestamp(),
               ],
             });
@@ -1361,7 +1361,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'New winners', value: `${winners.length}`, inline: true },
           { name: 'Total participants', value: `${totalParticipants}`, inline: true }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+        .setFooter({ text: 'St☆r', iconURL: LOGO })
         .setTimestamp();
 
       await i.editReply({ embeds: [confirmation] });
@@ -1397,7 +1397,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Channel', value: `<#${i.channelId}>`, inline: true },
           { name: 'By', value: `<@${i.user.id}>`, inline: true }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+        .setFooter({ text: 'St☆r', iconURL: LOGO })
         .setTimestamp();
 
       await i.editReply({ embeds: [embed] });
@@ -1408,7 +1408,7 @@ client.on('interactionCreate', async (i) => {
           const logEmbed = new EmbedBuilder()
             .setColor(0xff4444)
             .setDescription(`🧹 <@${i.user.id}> deleted **${deleted.size}** message(s) in <#${i.channelId}>.`)
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+            .setFooter({ text: 'St☆r', iconURL: LOGO })
             .setTimestamp();
           await logChannel.send({ embeds: [logEmbed] });
         }
@@ -1465,11 +1465,11 @@ client.on('interactionCreate', async (i) => {
           .setColor(0xff4444)
           .setThumbnail(LOGO)
           .addFields(
-            { name: 'Server', value: 'Vexora.cc', inline: true },
+            { name: 'Server', value: 'St☆r', inline: true },
             { name: 'Duration', value: durationMs ? formatShortDuration(durationMs) : 'Permanent', inline: true },
             { name: 'Reason', value: reason, inline: false }
           )
-          .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+          .setFooter({ text: 'St☆r', iconURL: LOGO })
           .setTimestamp();
         await targetUser.send({ embeds: [dmEmbed] });
       } catch (e) {}
@@ -1493,7 +1493,7 @@ client.on('interactionCreate', async (i) => {
               { name: 'Duration', value: durationMs ? formatShortDuration(durationMs) : 'Permanent', inline: true },
               { name: 'Reason', value: reason, inline: false }
             )
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+            .setFooter({ text: 'St☆r', iconURL: LOGO })
             .setTimestamp();
           await logChannel.send({ embeds: [logEmbed] });
         }
@@ -1508,7 +1508,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Duration', value: durationMs ? formatShortDuration(durationMs) : 'Permanent', inline: true },
           { name: 'Reason', value: reason, inline: false }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+        .setFooter({ text: 'St☆r', iconURL: LOGO })
         .setTimestamp();
 
       if (durationMs) {
@@ -1567,7 +1567,7 @@ client.on('interactionCreate', async (i) => {
               { name: 'Moderator', value: `<@${i.user.id}>`, inline: true },
               { name: 'Reason', value: reason, inline: false }
             )
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+            .setFooter({ text: 'St☆r', iconURL: LOGO })
             .setTimestamp();
           await logChannel.send({ embeds: [logEmbed] });
         }
@@ -1581,7 +1581,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'User', value: `${existingBan.user.tag} (<@${userId}>)`, inline: false },
           { name: 'Reason', value: reason, inline: false }
         )
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+        .setFooter({ text: 'St☆r', iconURL: LOGO })
         .setTimestamp();
 
       await i.editReply({ embeds: [embed] });
@@ -1760,7 +1760,7 @@ client.on('interactionCreate', async (i) => {
       await addTicket(ticketChannel.id, i.user.id, choice);
       const embed = new EmbedBuilder().setTitle(cat.name).setColor(cat.color)
         .setDescription(`<@${i.user.id}> — describe your question below.`)
-        .setFooter({ text: 'Vexora.cc', iconURL: LOGO }).setTimestamp();
+        .setFooter({ text: 'St☆r', iconURL: LOGO }).setTimestamp();
       const closeRow = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('ticket_close').setLabel('Close').setEmoji('🔒').setStyle(ButtonStyle.Danger)
       );
@@ -1777,7 +1777,7 @@ client.on('interactionCreate', async (i) => {
       try {
         if (i.member.roles.cache.has(VERIFY_ROLE_ID)) return i.reply({ content: 'You are already verified.', ephemeral: true });
         await i.member.roles.add(VERIFY_ROLE_ID, 'Verified via button');
-        await i.reply({ content: '✅ You are verified! Welcome to Vexora.cc.', ephemeral: true });
+        await i.reply({ content: '✅ You are verified! Welcome to St☆r.', ephemeral: true });
       } catch (e) { await i.reply({ content: `Error: ${e.message}`, ephemeral: true }); }
       return;
     }
@@ -1851,7 +1851,7 @@ client.on('interactionCreate', async (i) => {
             `Please upload your proof here (screenshots, video, files).\n\n` +
             `Staff will review it and click **Positive** or **False**.`
           )
-          .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+          .setFooter({ text: 'St☆r', iconURL: LOGO })
           .setTimestamp();
 
         const closeRow = new ActionRowBuilder().addComponents(
@@ -1915,7 +1915,7 @@ client.on('interactionCreate', async (i) => {
               `The ❌ vote has been added and confirmed on the legit poll.\n\n` +
               `Reviewed by: <@${i.user.id}>`
             )
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+            .setFooter({ text: 'St☆r', iconURL: LOGO })
             .setTimestamp();
           await i.channel.send({ embeds: [embed] });
 
@@ -1925,7 +1925,7 @@ client.on('interactionCreate', async (i) => {
               const logEmbed = new EmbedBuilder()
                 .setColor(0x00ff88)
                 .setDescription(`✅ **Not-Legit confirmed** — <@${targetUserId}> (proof approved by <@${i.user.id}>)\nTicket: #${i.channel.name}`)
-                .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+                .setFooter({ text: 'St☆r', iconURL: LOGO })
                 .setTimestamp();
               await logChannel.send({ embeds: [logEmbed] });
             }
@@ -1944,7 +1944,7 @@ client.on('interactionCreate', async (i) => {
               `No vote has been added to the legit poll.\n\n` +
               `Reviewed by: <@${i.user.id}>`
             )
-            .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+            .setFooter({ text: 'St☆r', iconURL: LOGO })
             .setTimestamp();
           await i.channel.send({ embeds: [embed] });
 
@@ -1954,7 +1954,7 @@ client.on('interactionCreate', async (i) => {
               const logEmbed = new EmbedBuilder()
                 .setColor(0xff4444)
                 .setDescription(`❌ **Not-Legit rejected** — <@${targetUserId}> (proof rejected by <@${i.user.id}>)\nTicket: #${i.channel.name}`)
-                .setFooter({ text: 'Vexora.cc', iconURL: LOGO })
+                .setFooter({ text: 'St☆r', iconURL: LOGO })
                 .setTimestamp();
               await logChannel.send({ embeds: [logEmbed] });
             }
@@ -2030,7 +2030,7 @@ client.on('interactionCreate', async (i) => {
           { name: 'Product', value: review.product },
           { name: 'Rating', value: `${stars(review.rating)} (${review.rating}/5)` },
           { name: 'Extra', value: review.extra }
-        ).setThumbnail(LOGO).setFooter({ text: 'Vexora.cc', iconURL: LOGO });
+        ).setThumbnail(LOGO).setFooter({ text: 'St☆r', iconURL: LOGO });
       await i.editReply({ components: [] });
       await i.channel.send({ embeds: [embed] });
       reviews.delete(i.user.id);
