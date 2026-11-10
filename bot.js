@@ -26,6 +26,7 @@ const PORT = process.env.PORT || 3000;
 // ===== Settings =====
 const REVIEW_CHANNEL_ID = '1557492672107642890';
 const REQUIRED_ROLE_ID = '1557492478431469688';
+const MEMBER_ROLE_ID = '1557492478431469688'; // Auto-rol bij joinen
 const PURCHASE_ROLE_ID = '1557492466939203676';
 const PURCHASE_LOG_CHANNEL_ID = '1557492828517564426';
 const SUGGESTIE_CHANNEL_ID = '1557492792740028536';
@@ -2045,6 +2046,17 @@ client.on('interactionCreate', async (i) => {
         await i.reply({ content: 'An unexpected error occurred.', ephemeral: true });
       }
     } catch (_) {}
+  }
+});
+
+// ===== Auto Role on Join =====
+client.on('guildMemberAdd', async (member) => {
+  if (member.guild.id !== GUILD_ID) return;
+  try {
+    await member.roles.add(MEMBER_ROLE_ID);
+    console.log(`✅ Auto-role uitgedeeld aan ${member.user.tag}`);
+  } catch (e) {
+    console.error(`❌ Kon auto-role niet toekennen aan ${member.user.tag}:`, e.message);
   }
 });
 
